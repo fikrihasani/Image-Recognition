@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -48,6 +49,7 @@ public class ThinningActivity extends AppCompatActivity {
             zhangThin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     zhangSuenThinning();
                 }
             });
@@ -87,9 +89,11 @@ public class ThinningActivity extends AppCompatActivity {
                 } else {
                     scaledBitmap = getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 260, 380);
                 }
-                thinnedBitmap = scaledBitmap.copy(Bitmap.Config.ALPHA_8, true);
+                thinnedBitmap = scaledBitmap.copy(Bitmap.Config.ARGB_8888, true);
                 toBW();
-                ori.setImageBitmap(thinnedBitmap);
+                ori.setImageBitmap(scaledBitmap);
+                zhangSuenThinning();
+                thin.setImageBitmap(thinnedBitmap);
             }catch (IOException e) {
                 e.printStackTrace();
             }
@@ -134,8 +138,8 @@ public class ThinningActivity extends AppCompatActivity {
 
     //zhang suen thinning
     private void zhangSuenThinning(){
-        for (int x = 1; x < thinnedBitmap.getWidth(); x++){
-            for (int y = 1; y < thinnedBitmap.getHeight(); y++){
+        for (int y = 1; y < thinnedBitmap.getHeight()-1; y++){
+            for (int x = 1; x < thinnedBitmap.getWidth()-1; x++){
                 Boolean cond0, cond1, cond2, cond3, cond4;
                 cond0 = cond1 = cond2 = cond3 = cond4 = false;
                 int cond3Val, cond4Val;
@@ -187,23 +191,14 @@ public class ThinningActivity extends AppCompatActivity {
                         BP += 1;
                     }
                     int totalMovement = Color.red(thinnedBitmap.getPixel(x,y-1)) + Color.red(thinnedBitmap.getPixel(x+1,y-1)) + Color.red(thinnedBitmap.getPixel(x+1,y)) + Color.red(thinnedBitmap.getPixel(x+1,y+1)) + Color.red(thinnedBitmap.getPixel(x,y+1)) + Color.red(thinnedBitmap.getPixel(x-1,y+1)) + Color.red(thinnedBitmap.getPixel(x-1,y)) + Color.red(thinnedBitmap.getPixel(x-1,y-1));
-                    AP = totalMovement/(7 * 255);
-                    if (AP == 1){
-                        cond2 = true;
-                    }
-                    if (2 <= BP && BP <= 6){
-                        cond1 = true;
-                    }
-                    if(cond3Val > 0){
-                        cond3 = true;
-                    }
-                    if (cond4Val > 0){
-                        cond4 = true;
+                    AP = totalMovement/(6 * 255);
+                    Log.d("AP BP: ", "zhangSuenThinning: AP = "+totalMovement+", BP = "+BP);
+                    Log.d("kondisi", "zhangSuenThinning: cond0 = "+cond0+",cond1 = "+cond1+",cond2 = "+cond2+", cond3 = "+cond3+", cond4 = "+cond4);
+                    if (cond0 && (2<= BP && BP <= 6) && (AP == 1) && (cond3Val > 0) && (cond4Val > 0)){
+                        thinnedBitmap.setPixel(x,y,Color.rgb(255,255,255));
                     }
                 }
-                if (cond0 && cond1 && cond2 && cond3 && cond4){
-                    thinnedBitmap.setPixel(x,y,Color.rgb(255,255,255));
-                }
+
             }
         }
     }

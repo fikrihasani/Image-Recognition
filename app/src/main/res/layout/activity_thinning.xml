@@ -12,14 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="108dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.206"
+        app:layout_constraintVertical_bias="0.21"
         app:srcCompat="@android:drawable/screen_background_light_transparent" />
 
     <ImageView
@@ -34,8 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgOri"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.206"
-        app:srcCompat="@android:drawable/screen_background_light_transparent" />
+        app:layout_constraintVertical_bias="0.209" />
 
     <Button
         android:id="@+id/buttonLoad"
@@ -48,10 +44,10 @@
         android:text="Load"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.239"
+        app:layout_constraintHorizontal_bias="0.117"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgOri"
-        app:layout_constraintVertical_bias="0.502" />
+        app:layout_constraintVertical_bias="0.496" />
 
     <Button
         android:id="@+id/zhangThin"
