@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import javax.crypto.Mac;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,6 +16,38 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button arialImg = findViewById(R.id.arialRecognitor);
         Button thinning = findViewById(R.id.thiningAlgorithm);
+        Button hisEq = findViewById(R.id.hisEq);
+        Button hisSpec = findViewById(R.id.hisSpec);
+        Button imgSmooth = findViewById(R.id.imgSmooth);
+        Button asciRec = findViewById(R.id.asciRec);
+
+        //launch activity for historam specification
+        hisSpec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HistogramSpecification.class);
+                startActivity(intent);
+            }
+        });
+
+        //launch activity for histogram equalization
+        hisEq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HistogramEqualization.class);
+                startActivity(intent);
+            }
+        });
+
+        //launch activity for image smoothing
+        imgSmooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ImageSmoothing.class);
+                startActivity(intent);
+            }
+        });
+
         //launch activity for arial img recognition
         arialImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -22,11 +56,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         //launch activity for thinning
         thinning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ThinningActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //launch activity for asci image recognitor
+        asciRec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AsciRecognitor.class);
                 startActivity(intent);
             }
         });

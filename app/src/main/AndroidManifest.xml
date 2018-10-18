@@ -17,7 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ArialNumberRecogActivity" />
-        <activity android:name=".ThinningActivity"></activity>
+        <activity android:name=".ThinningActivity" />
+        <activity android:name=".HistogramSpecification" />
+        <activity android:name=".HistogramEqualization" />
+        <activity android:name=".ImageSmoothing" />
+        <activity android:name=".AsciRecognitor"></activity>
     </application>
 
 </manifest>
