@@ -20,7 +20,17 @@ public class MainActivity extends AppCompatActivity {
         Button hisSpec = findViewById(R.id.hisSpec);
         Button imgSmooth = findViewById(R.id.imgSmooth);
         Button asciRec = findViewById(R.id.asciRec);
+        Button hisImg = findViewById(R.id.imgHis);
+        Button faceDetect = findViewById(R.id.faceDetect);
 
+        //launch activity for histogram gambar
+        hisImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Histogram.class);
+                startActivity(intent);
+            }
+        });
         //launch activity for historam specification
         hisSpec.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AsciRecognitor.class);
+                startActivity(intent);
+            }
+        });
+
+        //launch activity for face detection
+        faceDetect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FaceDetection.class);
                 startActivity(intent);
             }
         });

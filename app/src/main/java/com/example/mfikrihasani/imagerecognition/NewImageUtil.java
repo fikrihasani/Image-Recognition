@@ -182,7 +182,8 @@ public class NewImageUtil {
                     border2 = SubImageUtil.getNewBorder(pixelsa, border[0], border[1], border[2], border[3], width);
                     SkeletonFeature sf = SubImageUtil.extractFeature(pixelsa, border2[0], border2[1], border2[2], border2[3], width);
 
-                    stringBuffer.append(String.format("%d%d%d%d%d%d%d%d%d%d\r\n",
+                    stringBuffer.append(String.format("Fitur: \r\n posisi endpoints: %d%d%d%d%d%d%d%d%d\r\n Jumlah Endpoint: %d\r\nGaris horizontal atas: %d\r\nGaris Horizontal tengah: %d\r\nGaris Horizontal Bawah: %d\r\nGaris Vertikal kiri: %d\r\nGaris Vertikal tengah: %d\r\nGaris vertikal kanan: %d\r\nLobang atas: %d\r\nLobang tengah: %d\r\nLobang Bawah: %d\r\n",
+                            sf.ep[0],sf.ep[1],sf.ep[2],sf.ep[3],sf.ep[4],sf.ep[5],sf.ep[6],sf.ep[7],sf.ep[8],
                             sf.endpoints.size(),
                             sf.hTop, sf.hMid, sf.hBottom,
                             sf.vLeft, sf.vMid, sf.vRight,
@@ -190,17 +191,18 @@ public class NewImageUtil {
                 }
             }
         }
-//        textView.setText(stringBuffer);
-        String string = stringBuffer.toString();
-        Scanner scanner = new Scanner(string);
-        String cek="";
-        String set="";
-        while(scanner.hasNextLine()){
-            cek = scanner.nextLine();
-            set = set+matchFeature(cek)+",";
-        }
-        scanner.close();
-        textView.setText("hasil pengenalan adalah: "+set);
+
+        textView.setText(stringBuffer);
+//        String string = stringBuffer.toString();
+//        Scanner scanner = new Scanner(string);
+//        String cek="";
+//        String set="";
+//        while(scanner.hasNextLine()){
+//            cek = scanner.nextLine();
+//            set = set+matchFeature(cek)+",";
+//        }
+//        scanner.close();
+//        textView.setText("hasil pengenalan adalah: "+set);
 //        char hasil = matchFeature(stringBuffer);
 //        textView.setText("Hasil Pengenalan: "+hasil);
 
@@ -256,7 +258,6 @@ public class NewImageUtil {
             int sumError = 0;
             for (int a = 0; a < stringBuffer.length(); a++){
                 if (stringBuffer.charAt(a) == cek.charAt(a)){
-                    Log.d("cekAngka", "sumError: "+sumError+" char buffer: "+stringBuffer.charAt(a));
                     sumError++;
                 }
 //                sumError += Math.pow(Character.getNumericValue(stringBuffer.charAt(a)) - Character.getNumericValue(cek.charAt(a)),2);
@@ -266,7 +267,6 @@ public class NewImageUtil {
                 idAngka= i;
             }
         }
-        System.out.println("Max Angka: "+maxAngka+" - idAngka: "+idAngka+", Max Kapital: "+maxKapital+" - id kapital: "+idKapital+", maxKecil: "+maxKecil+" - id kecil: "+idKecil);
         if (maxAngka < maxKapital){
             if (maxKapital < maxKecil){
                 return featureKecil[idKecil][0].charAt(0);

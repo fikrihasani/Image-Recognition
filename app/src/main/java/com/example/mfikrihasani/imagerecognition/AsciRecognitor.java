@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import java.io.OutputStreamWriter;
 public class AsciRecognitor extends AppCompatActivity {
     ImageView imageView;
     TextView textView;
+    Button process;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,7 @@ public class AsciRecognitor extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView);
         textView = findViewById(R.id.textView);
+        process = findViewById(R.id.buttonProcess);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constant.IntentCode.LOAD_IMAGE);
@@ -76,6 +79,7 @@ public class AsciRecognitor extends AppCompatActivity {
     }
 
     public void loadImage(View view) {
+        process.setEnabled(true);
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, Constant.IntentCode.LOAD_IMAGE);
     }
@@ -87,6 +91,9 @@ public class AsciRecognitor extends AppCompatActivity {
 
     public void process(View view) {
         Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        Bitmap bm = NewImageUtil.getSkeleton(image)[0];
+        imageView.setImageBitmap(bm);
         NewImageUtil.getSkeletonFeature(image, textView);
+        process.setEnabled(false);
     }
 }

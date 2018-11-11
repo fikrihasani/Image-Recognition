@@ -1,10 +1,14 @@
 package com.example.mfikrihasani.imagerecognition;
 
+import android.util.Log;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
+import static android.content.ContentValues.TAG;
 
 public class SubImageUtil {
 
@@ -280,7 +284,8 @@ public class SubImageUtil {
 
         // titik ujung
         List<Integer> endpoints = new ArrayList<>();
-
+        int intersection = 0;
+        Log.d(TAG, "huruf baru");
         for (int j = ymin; j <= ymax; j++) {
             for (int i = xmin; i <= xmax; i++) {
                 int p = i + j * width;
@@ -307,11 +312,24 @@ public class SubImageUtil {
                     }
 
                     if (black == 1) {
+                        int heading = (index + 4) % 8;
                         endpoints.add((index + 4) % 8);
+                        //titik berarah
+                        int gridX = (xmax-xmin)/3 != 0 ? (xmax-xmin)/3 +1 : 1;
+                        int gridY = (ymax-ymin)/3 != 0 ? (ymax-ymin)/3 +1 : 1;
+
+                        int position = (1+(((i - xmin) / gridX)) + (((j - ymin) / gridY)) * 3) - 1;
+
+                        sf.ep[position]++;
+                        Log.d(TAG, "position: "+position);
+                    }else if(black >= 4){
+                        Log.d(TAG, "black: "+black);
+                        intersection +=1;
                     }
                 }
             }
         }
+        Log.d("intersection", "jumlah intersection huruf: "+intersection);
 
         sf.endpoints = endpoints;
 

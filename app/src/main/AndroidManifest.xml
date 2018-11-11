@@ -24,7 +24,9 @@
         <activity android:name=".HistogramSpecification" />
         <activity android:name=".HistogramEqualization" />
         <activity android:name=".ImageSmoothing" />
-        <activity android:name=".AsciRecognitor"></activity>
+        <activity android:name=".AsciRecognitor" />
+        <activity android:name=".Histogram" />
+        <activity android:name=".FaceDetection"></activity>
     </application>
 
 </manifest>
