@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArialNumberRecogActivity extends AppCompatActivity {
+public class ArialNumberRecog extends AppCompatActivity {
     int PICK_IMAGE = 1;
     Uri imageURI;
     Bitmap bitmap;
@@ -460,8 +460,5 @@ public class ArialNumberRecogActivity extends AppCompatActivity {
 
         return newBitmap;
     }
-
-
-
 
 }

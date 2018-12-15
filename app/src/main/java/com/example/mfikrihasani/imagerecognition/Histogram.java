@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.mfikrihasani.imagerecognition.Control.PublicUsage;
+import com.example.mfikrihasani.imagerecognition.Control.RGBArr;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
@@ -25,7 +27,7 @@ public class Histogram extends AppCompatActivity {
     Uri imageURI;
     Bitmap scaledBitmap;
     Bitmap bitmap;
-
+    PublicUsage publicUsage = new PublicUsage();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +58,11 @@ public class Histogram extends AppCompatActivity {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageURI);
                 if(bitmap.getHeight() == bitmap.getWidth()){
-                    scaledBitmap = getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 360, 360);
+                    scaledBitmap = publicUsage.getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 360, 360);
                 }else if(bitmap.getHeight() > bitmap.getWidth()){
-                    scaledBitmap = getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 360, 240);
+                    scaledBitmap = publicUsage.getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 360, 240);
                 }else{
-                    scaledBitmap = getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 240, 360);
+                    scaledBitmap = publicUsage.getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 240, 360);
                 }
                 //set bitmap
                 imageView.setImageBitmap(scaledBitmap);
@@ -104,20 +106,6 @@ public class Histogram extends AppCompatActivity {
         series.setColor(Color.GRAY);
         graph.addSeries(series);
 
-    }
-
-    private Bitmap getResizedBitmap(Bitmap bm, int height, int width, int newHeight, int newWidth){
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // crate matrix for manipulation
-        Matrix matrix = new Matrix();
-//        // Resize the bitmap
-        matrix.postScale(scaleWidth, scaleHeight);
-//        // recreate the new bitmap;
-        Bitmap newBitmap = Bitmap.createBitmap(bm, 0,0,width,height,matrix, false);
-//        bm.recycle();
-
-        return newBitmap;
     }
 
     public DataPoint[] rgbToPlot(int[] arr){

@@ -18,6 +18,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mfikrihasani.imagerecognition.Control.PublicUsage;
+import com.example.mfikrihasani.imagerecognition.Control.RGBArr;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
@@ -31,7 +33,7 @@ public class HistogramEqualization extends AppCompatActivity {
     Uri imageURI;
     Bitmap scaledBitmap;
     Bitmap bitmap;
-
+    PublicUsage publicUsage = new PublicUsage();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,22 +70,13 @@ public class HistogramEqualization extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int prog = seekBar.getProgress();
-                if(hasImage(imageViewResult)){
+                if(publicUsage.hasImage(imageViewResult)){
 //                    prog = (double) i * 0.01;
                     countEqualization(prog);
 //                        textView.setText("Progress: "+prog);
                 }
             }
         });
-    }
-
-    private boolean hasImage(@NonNull ImageView img){
-        Drawable drawable = img.getDrawable();
-        boolean hasImage = (drawable != null);
-        if(hasImage && (drawable instanceof BitmapDrawable)){
-            hasImage = ((BitmapDrawable) drawable).getBitmap()!=null;
-        }
-        return hasImage;
     }
 
     private void openGallery(){
@@ -103,11 +96,11 @@ public class HistogramEqualization extends AppCompatActivity {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageURI);
                 if(bitmap.getHeight() == bitmap.getWidth()){
-                    scaledBitmap = getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 360, 360);
+                    scaledBitmap = publicUsage.getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 360, 360);
                 }else if(bitmap.getHeight() > bitmap.getWidth()){
-                    scaledBitmap = getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 360, 240);
+                    scaledBitmap = publicUsage.getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 360, 240);
                 }else{
-                    scaledBitmap = getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 240, 360);
+                    scaledBitmap = publicUsage.getResizedBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), 240, 360);
                 }
                 //set bitmap
                 countEqualization(1);
@@ -198,21 +191,6 @@ public class HistogramEqualization extends AppCompatActivity {
         series = new BarGraphSeries<>(rgbToPlot(arr.greyNewCount));
         series.setColor(Color.GRAY);
         graph.addSeries(series);
-    }
-
-    //resize bitmap biar ga kegedean
-    private Bitmap getResizedBitmap(Bitmap bm, int height, int width, int newHeight, int newWidth){
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // crate matrix for manipulation
-        Matrix matrix = new Matrix();
-//        // Resize the bitmap
-        matrix.postScale(scaleWidth, scaleHeight);
-//        // recreate the new bitmap;
-        Bitmap newBitmap = Bitmap.createBitmap(bm, 0,0,width,height,matrix, false);
-//        bm.recycle();
-
-        return newBitmap;
     }
 
     public DataPoint[] rgbToPlot(int[] arr){

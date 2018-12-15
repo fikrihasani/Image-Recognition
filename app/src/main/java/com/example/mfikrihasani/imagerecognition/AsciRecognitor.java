@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mfikrihasani.imagerecognition.Control.Constant;
+import com.example.mfikrihasani.imagerecognition.Control.NewImageUtil;
+
 import java.io.OutputStreamWriter;
 
 public class AsciRecognitor extends AppCompatActivity {

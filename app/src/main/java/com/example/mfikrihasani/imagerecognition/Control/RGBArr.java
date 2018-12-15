@@ -1,4 +1,4 @@
-package com.example.mfikrihasani.imagerecognition;
+package com.example.mfikrihasani.imagerecognition.Control;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;

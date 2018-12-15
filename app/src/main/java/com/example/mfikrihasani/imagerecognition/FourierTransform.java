@@ -12,36 +12,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.example.mfikrihasani.imagerecognition.Control.FaceDetectionSupport;
+import com.example.mfikrihasani.imagerecognition.Control.FFTRosettaCode;
 import com.example.mfikrihasani.imagerecognition.Control.PublicUsage;
 
 import java.io.IOException;
 
 import static com.example.mfikrihasani.imagerecognition.ThinningActivity.PICK_IMAGE;
-import static java.lang.Math.abs;
 
-public class FaceDetection extends AppCompatActivity {
-    Button loadImage, process;
+public class FourierTransform extends AppCompatActivity {
+    Bitmap bitmap, scaledBitmap, processedImg;
     Uri imageURI;
-    Bitmap bitmap, scaledBitmap, processedImg, clonedBitmap;
-    ImageView loadedImage, detectedFace;
-    TextView textView;
-    int[] rgbMax = new int[3];
-    int xMax, xMin, yMax, yMin;
-    PublicUsage publicUsage = new PublicUsage();
+    ImageView loadedImage,transformedImage, inversedImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_face_detection);
-        loadImage = findViewById(R.id.loadImageF);
-        process = findViewById(R.id.processSobel);
-        loadedImage = findViewById(R.id.loadedImageF);
-        detectedFace = findViewById(R.id.detectedFace);
-        textView = findViewById(R.id.imageLocation);
+        setContentView(R.layout.activity_fourier_transform);
+        loadedImage = findViewById(R.id.fftImage);
+
     }
 
     public void openGallery(View view) {
@@ -52,6 +41,7 @@ public class FaceDetection extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        PublicUsage publicUsage = new PublicUsage();
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             // Load Image File
             imageURI = data.getData();
@@ -73,7 +63,6 @@ public class FaceDetection extends AppCompatActivity {
 
                 loadedImage.setImageBitmap(scaledBitmap);
 
-                Log.d("Face Feature", ": xMin = " + xMin + ", yMin = " + yMin + ", xMax = " + xMax + ", yMax = " + yMax);
                 //search face
 
             } catch (IOException e) {
@@ -82,28 +71,12 @@ public class FaceDetection extends AppCompatActivity {
         }
     }
 
-    //process
-    public void startDetect(View view) {
-        boolean [][] skinPixels = new boolean[scaledBitmap.getWidth()][scaledBitmap.getHeight()];
-        if (publicUsage.hasImage(loadedImage)) {
-            rgbMax[0] = rgbMax[1] = rgbMax[2] = 0;
-            processedImg = null;
-            Bitmap cropped = null;
-            FaceDetectionSupport.getSkinPixels(scaledBitmap,skinPixels);
-            processedImg = FaceDetectionSupport.detectFace(scaledBitmap,skinPixels);
-            detectedFace.setImageBitmap(processedImg);
-
-//            processedImg = FaceDetectionSupport.getSkinPixels(scaledBitmap,skinPixels);
-//            cropped = FaceDetectionSupport.getCroppedBitmap();
-//            if(processedImg != null){
-//                cropped = FaceDetectionSupport.sobelOperator(0,cropped.getWidth(),0,cropped.getHeight(),cropped);
-//                detectedFace.setImageBitmap(cropped);
-//                textView.setText("ukuran scaled image: "+scaledBitmap.getWidth()+","+scaledBitmap.getHeight());
-//            }else{
-//                textView.setText("No image processed");
-//            }
-        } else {
-            textView.setText("No Image to Process");
-        }
+    public void fft(View view){
+        Log.d("cekfft", "fft: ceeek");
+////            FastFourierTransform fastFourierTransform = new FastFourierTransform();
+        FFTRosettaCode fftRosettaCode = new FFTRosettaCode();
+        int[] img1D = new int[100];
+        fftRosettaCode.startFFT(scaledBitmap);
     }
+
 }

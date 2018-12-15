@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         Button asciRec = findViewById(R.id.asciRec);
         Button hisImg = findViewById(R.id.imgHis);
         Button faceDetect = findViewById(R.id.faceDetect);
+        Button edgeDetect = findViewById(R.id.edgeDetect);
+        Button fourierTransform = findViewById(R.id.fourierTransform);
 
         //launch activity for histogram gambar
         hisImg.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         arialImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ArialNumberRecogActivity.class);
+                Intent intent = new Intent(MainActivity.this, ArialNumberRecog.class);
                 startActivity(intent);
             }
         });
@@ -93,5 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //launch activity for edge deection
     }
 }

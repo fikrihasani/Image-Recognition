@@ -20,11 +20,11 @@ import com.example.mfikrihasani.imagerecognition.Control.FaceDetectionSupport;
 import com.example.mfikrihasani.imagerecognition.Control.PublicUsage;
 
 import java.io.IOException;
+import java.text.BreakIterator;
 
 import static com.example.mfikrihasani.imagerecognition.ThinningActivity.PICK_IMAGE;
-import static java.lang.Math.abs;
 
-public class FaceDetection extends AppCompatActivity {
+public class EdgeDetectection extends AppCompatActivity {
     Button loadImage, process;
     Uri imageURI;
     Bitmap bitmap, scaledBitmap, processedImg, clonedBitmap;
@@ -36,12 +36,12 @@ public class FaceDetection extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_face_detection);
-        loadImage = findViewById(R.id.loadImageF);
+        setContentView(R.layout.activity_edge_detectection);
+        loadImage = findViewById(R.id.loadImageE);
         process = findViewById(R.id.processSobel);
-        loadedImage = findViewById(R.id.loadedImageF);
-        detectedFace = findViewById(R.id.detectedFace);
-        textView = findViewById(R.id.imageLocation);
+        loadedImage = findViewById(R.id.loadedImageE);
+        detectedFace = findViewById(R.id.sobeledFace);
+        textView = findViewById(R.id.imageMessage);
     }
 
     public void openGallery(View view) {
@@ -83,7 +83,7 @@ public class FaceDetection extends AppCompatActivity {
     }
 
     //process
-    public void startDetect(View view) {
+    public void startSobel(View view) {
         boolean [][] skinPixels = new boolean[scaledBitmap.getWidth()][scaledBitmap.getHeight()];
         if (publicUsage.hasImage(loadedImage)) {
             rgbMax[0] = rgbMax[1] = rgbMax[2] = 0;
@@ -91,17 +91,22 @@ public class FaceDetection extends AppCompatActivity {
             Bitmap cropped = null;
             FaceDetectionSupport.getSkinPixels(scaledBitmap,skinPixels);
             processedImg = FaceDetectionSupport.detectFace(scaledBitmap,skinPixels);
-            detectedFace.setImageBitmap(processedImg);
+//            detectedFace.setImageBitmap(processedImg);
 
-//            processedImg = FaceDetectionSupport.getSkinPixels(scaledBitmap,skinPixels);
-//            cropped = FaceDetectionSupport.getCroppedBitmap();
-//            if(processedImg != null){
-//                cropped = FaceDetectionSupport.sobelOperator(0,cropped.getWidth(),0,cropped.getHeight(),cropped);
-//                detectedFace.setImageBitmap(cropped);
-//                textView.setText("ukuran scaled image: "+scaledBitmap.getWidth()+","+scaledBitmap.getHeight());
-//            }else{
-//                textView.setText("No image processed");
-//            }
+            cropped = FaceDetectionSupport.getCroppedBitmap();
+            if(cropped!= null){
+                Bitmap[] hasil = new Bitmap[2];
+                hasil = FaceDetectionSupport.sobelOperator(0,cropped.getWidth(),0,cropped.getHeight(),cropped);
+                cropped = hasil[0];
+//                Bitmap detected = hasil[1];
+                Bitmap rgb = hasil[1];
+                Bitmap detected = FaceDetectionSupport.detectObject(cropped,rgb);
+
+                detectedFace.setImageBitmap(detected);
+                textView.setText("ukuran scaled image: "+scaledBitmap.getWidth()+","+scaledBitmap.getHeight());
+            }else{
+                textView.setText("No image processed");
+            }
         } else {
             textView.setText("No Image to Process");
         }

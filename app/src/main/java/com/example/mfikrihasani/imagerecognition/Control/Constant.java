@@ -1,4 +1,4 @@
-package com.example.mfikrihasani.imagerecognition;
+package com.example.mfikrihasani.imagerecognition.Control;
 
 public class Constant {
     public static class IntentCode {

@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FaceDetection">
-
+    tools:context=".EdgeDetectection">
     <ImageView
-        android:id="@+id/loadedImageF"
+        android:id="@+id/loadedImageE"
         android:layout_width="168dp"
         android:layout_height="233dp"
         android:layout_marginStart="16dp"
@@ -17,7 +16,7 @@
         />
 
     <ImageView
-        android:id="@+id/detectedFace"
+        android:id="@+id/sobeledFace"
         android:layout_width="168dp"
         android:layout_height="233dp"
         android:layout_marginStart="8dp"
@@ -26,10 +25,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/loadedImageF"
         app:layout_constraintTop_toTopOf="parent"
-      />
+        />
 
     <Button
-        android:id="@+id/loadImageF"
+        android:id="@+id/loadImageE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -39,7 +38,7 @@
         android:text="Load Image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loadedImageF" />
+        app:layout_constraintTop_toBottomOf="@+id/loadedImageE" />
 
     <Button
         android:id="@+id/processSobel"
@@ -49,13 +48,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Process"
-        android:onClick="startDetect"
+        android:onClick="startSobel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loadImageF" />
+        app:layout_constraintTop_toBottomOf="@+id/loadImageE" />
 
     <TextView
-        android:id="@+id/imageLocation"
+        android:id="@+id/imageMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

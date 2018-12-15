@@ -1,4 +1,4 @@
-package com.example.mfikrihasani.imagerecognition;
+package com.example.mfikrihasani.imagerecognition.Control;
 
 import java.util.List;
 
@@ -15,6 +15,4 @@ public class SkeletonFeature {
     public int lTop;
     public int lMid;
     public int lBottom;
-
-
 }

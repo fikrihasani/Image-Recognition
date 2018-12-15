@@ -19,14 +19,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ArialNumberRecogActivity" />
+        <!-- <activity android:name="." /> -->
+        <activity android:name=".AsciRecognitor" />
         <activity android:name=".ThinningActivity" />
         <activity android:name=".HistogramSpecification" />
         <activity android:name=".HistogramEqualization" />
         <activity android:name=".ImageSmoothing" />
-        <activity android:name=".AsciRecognitor" />
         <activity android:name=".Histogram" />
-        <activity android:name=".FaceDetection"></activity>
+        <activity android:name=".FaceDetection" />
+        <activity android:name=".EdgeDetectection" />
+        <activity android:name=".FourierTransform" />
+        <activity android:name=".ArialNumberRecog"></activity>
     </application>
 
 </manifest>
