@@ -28,8 +28,8 @@
         <activity android:name=".Histogram" />
         <activity android:name=".FaceDetection" />
         <activity android:name=".EdgeDetectection" />
-        <activity android:name=".FourierTransform" />
-        <activity android:name=".ArialNumberRecog"></activity>
+        <activity android:name=".ArialNumberRecog" />
+        <activity android:name=".DiscreteFourierTransform"></activity>
     </application>
 
 </manifest>

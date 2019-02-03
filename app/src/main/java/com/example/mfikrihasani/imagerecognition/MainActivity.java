@@ -97,5 +97,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //launch activity for edge deection
+        edgeDetect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, EdgeDetectection.class);
+                startActivity(intent);
+            }
+        });
+        //launch activity for fourier transform
+        fourierTransform.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DiscreteFourierTransform.class);
+                startActivity(intent);
+            }
+        });
     }
 }
